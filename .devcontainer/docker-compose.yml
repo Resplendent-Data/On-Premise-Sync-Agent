@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  # Where all of the development happens
+  on-prem-sync-agent-workspace:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+    # Override the default command
+    command: /bin/zsh -c "while sleep 1000; do :; done"
+    container_name: on-prem-sync-agent-workspace
+    volumes:
+      - ..:/workspace:cached
+      - zsh_history:/commandhistory
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - data_warehouse:/workspace/data_warehouse
+    networks:
+      - backend-proxy
+
+volumes:
+  zsh_history:
+  data_warehouse:
+    external: true
+
+
+networks:
+  backend-proxy:
+    name: back-end_devcontainer_default
+    external: true

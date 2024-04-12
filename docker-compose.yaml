@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  web:
+    image: "index.docker.io/malachibazar/sync-agent:latest"
+    ports:
+      - "8050:8050"
+    restart: always
+    volumes:
+      - /proc/sysrq-trigger:/sysrq
+      - ./sync_agent:/app/sync_agent_configs
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 21600 --cleanup --debug
+    restart: always

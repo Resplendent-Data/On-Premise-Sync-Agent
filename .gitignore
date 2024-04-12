@@ -1,0 +1,10 @@
+dist/
+build/
+__pycache__/
+env.json
+config_server_creds.json
+sync_info.db
+backend-config/config.json
+tmp/*
+sync_agent.json
+data_warehouse/
